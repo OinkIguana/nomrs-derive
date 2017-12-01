@@ -35,7 +35,7 @@ pub fn noms_struct(ast: &syn::DeriveInput) -> quote::Tokens {
     };
 
     quote! {
-        impl<'a> ::nomrs::value::NomsStruct for #name {
+        impl<'a> ::nomrs::value::NomsStruct<'a> for #name {
             const NAME: &'static str = stringify!(#name);
             fn from_prop_list(mut props: ::std::collections::HashMap<String, ::nomrs::value::NomsValue<'a>>) -> Option<Self> {
                 #from_prop_list
