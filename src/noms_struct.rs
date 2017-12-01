@@ -21,7 +21,7 @@ pub fn noms_struct(ast: &syn::DeriveInput) -> quote::Tokens {
             let map_pairs = props
                 .iter()
                 .map(|&(ref key, ref db_key)| quote! {
-                    map.insert(#db_key, self.#key);
+                    map.insert(stringify!(#db_key).to_string(), self.#key);
                 });
             let nkeys = props.len();
             let to = quote! {
