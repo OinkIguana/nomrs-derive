@@ -21,7 +21,7 @@ pub fn noms_struct(ast: &syn::DeriveInput) -> quote::Tokens {
             let map_pairs = props
                 .iter()
                 .map(|&(ref key, ref db_key)| quote! {
-                    map.insert(stringify!(#db_key).to_string(), self.#key);
+                    map.insert(stringify!(#db_key).to_string(), self.#key.into_noms());
                 });
             let nkeys = props.len();
             let to = quote! {
@@ -40,7 +40,8 @@ pub fn noms_struct(ast: &syn::DeriveInput) -> quote::Tokens {
             fn from_prop_list(mut props: ::std::collections::HashMap<String, ::nomrs::value::NomsValue<'a>>) -> Option<Self> {
                 #from_prop_list
             }
-            fn to_prop_list(&self) -> ::std::collections::HashMap<String, ::nomrs::value::NomsValue<'a>> {
+            fn to_prop_list(&self) -> ::std::collections::HashMap<String, Vec<u8>> {
+                use ::nomrs::value::IntoNoms;
                 #to_prop_list
             }
         }

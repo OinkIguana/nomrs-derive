@@ -1,3 +1,5 @@
+#![recursion_limit = "128"]
+
 extern crate heck;
 extern crate proc_macro;
 extern crate syn;
